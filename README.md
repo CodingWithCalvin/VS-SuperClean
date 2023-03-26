@@ -2,7 +2,7 @@
 
 ## License
 
-[![License - MIT](https://img.shields.io/github/license/calvinallen/vs-super-cleam?style=for-the-badge)](https://img.shields.io/github/license/calvinallen/vs-super-clean?style=for-the-badge)
+[![License - MIT](https://img.shields.io/github/license/calvinallen/vs-super-clean?style=for-the-badge)](https://img.shields.io/github/license/calvinallen/vs-super-clean?style=for-the-badge)
 
 ## Build Status
 
