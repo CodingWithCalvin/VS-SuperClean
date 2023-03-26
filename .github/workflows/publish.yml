@@ -1,0 +1,28 @@
+name: Publish to VS Marketplace
+
+on:
+  push:
+    tags:
+      - "release/**"
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.GH_TOKEN}}
+          workflow: release_build_and_deploy.yml
+          workflow_conclusion: success
+
+      - name: Publish Release to Marketplace
+        uses: CalvinAllen/action-vs-marketplace-publish@v1
+        with:
+          marketplace-pat: ${{ secrets.VS_PAT }}
+          publish-manifest-path: ./src/extension.manifest.json
+          vsix-path: ./artifact/CodingWithCalvin.SuperClean.Vsix.vsix
