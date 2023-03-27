@@ -1,5 +1,7 @@
 # Super Clean
 
+A Visual Studio (2022 and up) extension that adds a right-click context menu command to the Solution node, and Project node, that allows you to recursively delete (i.e., clean) the selected project's bin & obj folders, or all projects in the solution.
+
 ## License
 
 [![License - MIT](https://img.shields.io/github/license/calvinallen/vs-super-clean?style=for-the-badge)](https://img.shields.io/github/license/calvinallen/vs-super-clean?style=for-the-badge)
@@ -13,10 +15,8 @@
 [![Marketplace Installations](https://img.shields.io/visual-studio-marketplace/i/coding-with-calvin.super-clean?style=for-the-badge)](https://img.shields.io/visual-studio-marketplace/i/coding-with-calvin.super-clean?style=for-the-badge) [![Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/coding-with-calvin.super-clean?style=for-the-badge)](https://img.shields.io/visual-studio-marketplace/d/coding-with-calvin.super-clean?style=for-the-badge)
 [![Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/coding-with-calvin.super-clean?style=for-the-badge)](https://img.shields.io/visual-studio-marketplace/v/coding-with-calvin.super-clean?style=for-the-badge) [![Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/coding-with-calvin.super-clean?style=for-the-badge)](https://img.shields.io/visual-studio-marketplace/r/coding-with-calvin.super-clean?style=for-the-badge)
 
-## Description
-
-A Visual Studio (2022 and up) extension that adds a right-click context menu command to the Solution node, and Project node, that allows you to recursively delete (i.e., clean) the selected project's bin & obj folders, or all projects in the solution.
-
 ## Contribute
 
 Contributions are welcome! Issues, PRs, etc. While it may seem this extension is "done", who knows what the future may hold for it?
+
+For cloning and building this project yourself, make sure to install the [Extensibility Essentials 2022 extension](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.ExtensibilityEssentials2022) for Visual Studio which enables some features used by this project.
