@@ -15,14 +15,11 @@ jobs:
     - uses: actions/checkout@v2
     - uses: microsoft/setup-msbuild@v1.0.2
     
-    - name: 1. Increment Version
-      run: |
-        (new-object Net.WebClient).DownloadString("https://raw.githubusercontent.com/CalvinAllen/devops-scripts/master/gh-actions-set-vsix-version.ps1") | iex
-        Vsix-IncrementVersion `
-            -BuildNumber ${{ github.run_number }} `
-            -manifestFile './src/CodingWithCalvin.SuperClean.Vsix/source.extension.vsixmanifest' `
-            -extensionSourceFile './src/CodingWithCalvin.SuperClean.Vsix/source.extension.cs'
-      shell: pwsh
+    - name: 1. Versioning Release
+      uses: CalvinAllen/action-vs-vsix-versioner@v1
+      with:
+        extension-manifest-file: './src/CodingWithCalvin.SuperClean.Vsix/source.extension.vsixmanifest'
+        extension-source-file: './src/CodingWithCalvin.SuperClean.Vsix/source.extension.cs'
 
     - name: 2. Bootstrapping NuGet Installer
       uses: nuget/setup-nuget@v1
