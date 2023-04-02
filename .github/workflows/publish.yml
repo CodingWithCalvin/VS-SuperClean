@@ -1,6 +1,7 @@
 name: Publish to VS Marketplace
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - "release/**"
