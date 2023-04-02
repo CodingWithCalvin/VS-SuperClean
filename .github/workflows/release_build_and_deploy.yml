@@ -12,8 +12,8 @@ jobs:
     runs-on: windows-latest
     
     steps:
-    - uses: actions/checkout@v2
-    - uses: microsoft/setup-msbuild@v1.0.2
+    - uses: actions/checkout@v3
+    - uses: microsoft/setup-msbuild@v1.3.1
     
     - name: 1. Versioning Release
       uses: CalvinAllen/action-vs-vsix-versioner@v1
@@ -22,7 +22,7 @@ jobs:
         extension-source-file: './src/CodingWithCalvin.SuperClean.Vsix/source.extension.cs'
 
     - name: 2. Bootstrapping NuGet Installer
-      uses: nuget/setup-nuget@v1
+      uses: nuget/setup-nuget@v1.1.1
     
     - name: 3. Restoring Packages
       run: nuget restore ./src/CodingWithCalvin.SuperClean.sln
