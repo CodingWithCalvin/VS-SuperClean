@@ -10,20 +10,29 @@ jobs:
   publish:
     runs-on: windows-latest
     steps:
-      - name: Checkout
+      - name: 1. Checkout
         uses: actions/checkout@v3
 
-      - name: Download artifact
+      - name: 2. Download artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
         with:
-          github_token: ${{secrets.GH_TOKEN}}
+          github_token: ${{secrets.GH_SECRET}}
           workflow: release_build_and_deploy.yml
           workflow_conclusion: success
 
-      - name: Publish Release to Marketplace
-        uses: CalvinAllen/action-vs-marketplace-publish@v1
+      - name: 3. Publish Release to Marketplace
+        uses: CodingWithCalvin/GHA-VSMarketplacePublisher@v1
         with:
           marketplace-pat: ${{ secrets.VS_PAT }}
           publish-manifest-path: ./src/extension.manifest.json
           vsix-path: ./artifact/CodingWithCalvin.SuperClean.Vsix.vsix
+
+      - name: 4. Create Release
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          artifacts: ./artifact/CodingWithCalvin.SuperClean.Vsix.vsix
+          generateReleaseNotes: true
+          makeLatest: true
+          token: ${{secrets.GH_SECRET}}
+                

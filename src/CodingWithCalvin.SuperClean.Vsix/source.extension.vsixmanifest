@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="73E1557D-C113-46C5-95B5-50AFB47A7AAA" Version="1.1" Language="en-US" Publisher="Coding with Calvin" />
+        <Identity Id="VS-SuperClean" Version="1.1" Language="en-US" Publisher="Coding with Calvin" />
         <DisplayName>Super Clean</DisplayName>
-        <Description xml:space="preserve">Adds a 'Super Clean' option to the right click menu of the Solution and Project nodes of the Solution Explorer, to fully clear out the bin and obj folders for either all projects in the solution, or the specific project selected.</Description>
-        <MoreInfo>https://github.com/CalvinAllen/vs-super-clean</MoreInfo>
+        <Description xml:space="preserve">Adds a 'Super Clean' option to the right click menu of the Solution and Project nodes of the Solution Explorer, to clear out the bin and obj folders for all, or selected, projects in the solution.</Description>
+        <MoreInfo>https://github.com/codingwithcalvin/vs-superclean</MoreInfo>
         <Icon>Resources\logo.png</Icon>
         <Tags>bin,debug,folder,output</Tags>
     </Metadata>

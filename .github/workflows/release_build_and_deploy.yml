@@ -17,7 +17,7 @@ jobs:
     - uses: microsoft/setup-msbuild@v1.3.1
     
     - name: 1. Versioning Release
-      uses: CalvinAllen/action-vs-vsix-versioner@v1
+      uses: CodingWithCalvin/GHA-VSVsixVersioner@v1
       with:
         extension-manifest-file: './src/CodingWithCalvin.SuperClean.Vsix/source.extension.vsixmanifest'
         extension-source-file: './src/CodingWithCalvin.SuperClean.Vsix/source.extension.cs'
