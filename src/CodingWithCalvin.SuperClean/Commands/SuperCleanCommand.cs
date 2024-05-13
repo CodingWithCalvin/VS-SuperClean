@@ -7,7 +7,7 @@ using Community.VisualStudio.Toolkit;
 using Microsoft.VisualStudio.Shell;
 using MessageBox = System.Windows.Forms.MessageBox;
 
-namespace CodingWithCalvin.SuperClean.Vsix.Commands
+namespace CodingWithCalvin.SuperClean.Commands
 {
     internal class SuperCleanCommand
     {
@@ -17,18 +17,22 @@ namespace CodingWithCalvin.SuperClean.Vsix.Commands
         {
             _package = package;
 
-            var commandService = (OleMenuCommandService)ServiceProvider.GetService(typeof(IMenuCommandService));
+            var commandService = (OleMenuCommandService)
+                ServiceProvider.GetService(typeof(IMenuCommandService));
 
             if (commandService == null)
             {
                 return;
             }
 
-            var menuCommandId = new CommandID(PackageGuids.CommandSetGuid, PackageIds.SuperCleanCommandId);
+            var menuCommandId = new CommandID(
+                PackageGuids.CommandSetGuid,
+                PackageIds.SuperCleanCommandId
+            );
             var menuItem = new MenuCommand(OpenPathWrapper, menuCommandId);
             commandService.AddCommand(menuItem);
         }
-        
+
         private IServiceProvider ServiceProvider => _package;
 
         public static void Initialize(Package package)
@@ -44,11 +48,13 @@ namespace CodingWithCalvin.SuperClean.Vsix.Commands
             }
             catch (Exception ex)
             {
-                MessageBox.Show($@"
+                MessageBox.Show(
+                    $@"
                                 Fatal Error! Unable to invoke Super Clean!
                                 {Environment.NewLine}
                                 {Environment.NewLine}
-                                Exception: {ex.Message}");
+                                Exception: {ex.Message}"
+                );
             }
         }
 
@@ -72,15 +78,16 @@ namespace CodingWithCalvin.SuperClean.Vsix.Commands
                         {
                             throw new ApplicationException(errors);
                         }
-
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($@"
+                        MessageBox.Show(
+                            $@"
                                 Unable to Super Clean solution
                                 {Environment.NewLine}
                                 {Environment.NewLine}
-                                Exception: {ex.Message}");
+                                Exception: {ex.Message}"
+                        );
                     }
 
                     break;
@@ -91,11 +98,13 @@ namespace CodingWithCalvin.SuperClean.Vsix.Commands
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($@"
+                        MessageBox.Show(
+                            $@"
                                 Unable to Super Clean project ${activeItem.Name}
                                 {Environment.NewLine}
                                 {Environment.NewLine}
-                                Exception: {ex.Message}");
+                                Exception: {ex.Message}"
+                        );
                     }
 
                     break;
@@ -124,8 +133,9 @@ namespace CodingWithCalvin.SuperClean.Vsix.Commands
 
             void SuperCleanProject(SolutionItem project)
             {
-                var projectPath = Path.GetDirectoryName(project.FullPath) 
-                                  ?? throw new InvalidOperationException();
+                var projectPath =
+                    Path.GetDirectoryName(project.FullPath)
+                    ?? throw new InvalidOperationException();
 
                 var binPath = Path.Combine(projectPath, "bin");
                 var objPath = Path.Combine(projectPath, "obj");

@@ -33,8 +33,8 @@
     <ProjectGuid>{123DBC9B-8955-4446-9A74-DD2B8068F7B0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CodingWithCalvin.SuperClean.Vsix</RootNamespace>
-    <AssemblyName>CodingWithCalvin.SuperClean.Vsix</AssemblyName>
+    <RootNamespace>CodingWithCalvin.SuperClean</RootNamespace>
+    <AssemblyName>CodingWithCalvin.SuperClean</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>

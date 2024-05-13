@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Threading;
-using CodingWithCalvin.SuperClean.Vsix.Commands;
+using CodingWithCalvin.SuperClean.Commands;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace CodingWithCalvin.SuperClean.Vsix
+namespace CodingWithCalvin.SuperClean
 {
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration(Vsix.Name, Vsix.Description, Vsix.Version)]
@@ -13,7 +13,10 @@ namespace CodingWithCalvin.SuperClean.Vsix
     [ProvideMenuResource("Menus.ctmenu", 1)]
     public sealed class SuperCleanPackage : AsyncPackage
     {
-        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
+        protected override async Task InitializeAsync(
+            CancellationToken cancellationToken,
+            IProgress<ServiceProgressData> progress
+        )
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
