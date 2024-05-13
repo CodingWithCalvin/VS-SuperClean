@@ -28,7 +28,7 @@ jobs:
         uses: CodingWithCalvin/GHA-VSMarketplacePublisher@v1
         with:
           marketplace-pat: ${{ secrets.VS_PAT }}
-          publish-manifest-path: ./src/extension.manifest.json
+          publish-manifest-path: ./resources/extension.manifest.json
           vsix-path: ./artifact/CodingWithCalvin.SuperClean.vsix
 
       - name: 4. Create Tag & Release
