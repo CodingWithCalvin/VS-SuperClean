@@ -15,25 +15,32 @@ jobs:
     runs-on: windows-latest
     
     steps:
-    - uses: actions/checkout@v3
-    - uses: microsoft/setup-msbuild@v1.3.1
-    
+    - uses: actions/checkout@v4
+    - uses: microsoft/setup-msbuild@v2
+    - uses: nuget/setup-nuget@v2
+
     - name: 1. Versioning Release
+      id: step-version
       uses: CodingWithCalvin/GHA-VSVsixVersioner@v1
       with:
-        extension-manifest-file: './src/CodingWithCalvin.SuperClean.Vsix/source.extension.vsixmanifest'
-        extension-source-file: './src/CodingWithCalvin.SuperClean.Vsix/source.extension.cs'
-
-    - name: 2. Bootstrapping NuGet Installer
-      uses: nuget/setup-nuget@v1.1.1
+        extension-manifest-file: 'src/CodingWithCalvin.SuperClean.Vsix/source.extension.vsixmanifest'
+        extension-source-file: 'src/CodingWithCalvin.SuperClean.Vsix/VsixConstants.cs'
     
-    - name: 3. Restoring Packages
+    - name: 2. Restoring Packages
       run: nuget restore ./src/CodingWithCalvin.SuperClean.sln
-    
-    - name: 4. Building Project
-      run: msbuild './src/CodingWithCalvin.SuperClean.Vsix/CodingWithCalvin.SuperClean.Vsix.csproj' /p:configuration='Release' /p:platform='x64'
 
-    - name: 5. Publishing Build Artifact
-      uses: actions/upload-artifact@v3
+    - name: 3. Building Project
+      run: msbuild 'src/CodingWithCalvin.SuperClean.Vsix/CodingWithCalvin.SuperClean.Vsix.csproj' /p:configuration='Release' /p:platform='x64'
+
+    - name: 4. Create Information File
+      uses: jsdaniell/create-json@v1.2.3
       with:
-        path: './src/CodingWithCalvin.SuperClean.Vsix/bin/x64/Release/CodingWithCalvin.SuperClean.Vsix.vsix'
+        name: 'src/CodingWithCalvin.SuperClean.Vsix/bin/x64/Release/CodingWithCalvin.SuperClean.Vsix.info'
+        json: '{"sha":"${{ github.sha }}", "version":"${{ steps.step-version.outputs.version }}"}'
+    
+    - name: 5. Publishing Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        path: |
+          src/CodingWithCalvin.SuperClean.Vsix/bin/x64/Release/CodingWithCalvin.SuperClean.Vsix.info
+          src/CodingWithCalvin.SuperClean.Vsix/bin/x64/Release/CodingWithCalvin.SuperClean.Vsix.vsix

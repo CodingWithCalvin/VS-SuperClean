@@ -9,7 +9,7 @@ namespace CodingWithCalvin.SuperClean.Vsix
     {
         public const string Id = "VS-SuperClean";
         public const string Name = "Super Clean";
-        public const string Description = @"Adds a 'Super Clean' option to the right click menu of the Solution and Project nodes of the Solution Explorer, to fully clear out the bin and obj folders for either all projects in the solution, or the specific project selected.";
+        public const string Description = @"Adds a 'Super Clean' option to the right click menu of the Solution and Project nodes of the Solution Explorer, to clear out the bin and obj folders for all, or selected, projects in the solution.";
         public const string Language = "en-US";
         public const string Version = "1.1";
         public const string Author = "Coding With Calvin";

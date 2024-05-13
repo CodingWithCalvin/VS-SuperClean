@@ -63,6 +63,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\LICENSE">
+      <Link>Resources\LICENSE</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
       <Generator>VsixManifestGenerator</Generator>
@@ -96,19 +100,26 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\resources\icon.png">
+      <Link>Resources\icon.png</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\resources\logo.png">
+      <Link>Resources\logo.png</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Resources\icon.png">
-	  <Link>../resources/icon.png</Link>
+      <Link>../resources/icon.png</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Resources\logo.png">
       <Link>../resources/logo.png</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-	<Content Include="Resources\LICENSE">
+    <Content Include="Resources\LICENSE">
       <Link>../../LICENSE</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
