@@ -15,7 +15,7 @@
     </Buttons>
 
     <Bitmaps>
-      <Bitmap guid="IconGuid" usedList="BroomIcon" href="../resources/icon.png" />
+      <Bitmap guid="IconGuid" usedList="BroomIcon" href="../../resources/icon.png" />
     </Bitmaps>
   </Commands>
 

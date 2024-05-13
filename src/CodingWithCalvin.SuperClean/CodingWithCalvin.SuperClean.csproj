@@ -64,7 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\..\LICENSE">
-      <Link>Resources\LICENSE</Link>
+      <Link>resources\LICENSE</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="source.extension.vsixmanifest">
@@ -100,24 +100,16 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\resources\icon.png">
-      <Link>Resources\icon.png</Link>
+    <Content Include="..\..\resources\icon.png">
+      <Link>resources\icon.png</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="..\resources\logo.png">
-      <Link>Resources\logo.png</Link>
+    <Content Include="..\..\resources\logo.png">
+      <Link>resources\logo.png</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\icon.png">
-      <Link>../resources/icon.png</Link>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Resources\logo.png">
-      <Link>../resources/logo.png</Link>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Resources\LICENSE">
-      <Link>../../LICENSE</Link>
+    <Content Include="..\LICENSE">
+      <Link>resources\LICENSE</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
   </ItemGroup>

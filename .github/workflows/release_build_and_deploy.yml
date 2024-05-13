@@ -23,24 +23,24 @@ jobs:
       id: step-version
       uses: CodingWithCalvin/GHA-VSVsixVersioner@v1
       with:
-        extension-manifest-file: 'src/CodingWithCalvin.SuperClean.Vsix/source.extension.vsixmanifest'
-        extension-source-file: 'src/CodingWithCalvin.SuperClean.Vsix/source.extension.cs'
+        extension-manifest-file: 'src/CodingWithCalvin.SuperClean/source.extension.vsixmanifest'
+        extension-source-file: 'src/CodingWithCalvin.SuperClean/source.extension.cs'
     
     - name: 2. Restoring Packages
       run: nuget restore ./src/CodingWithCalvin.SuperClean.sln
 
     - name: 3. Building Project
-      run: msbuild 'src/CodingWithCalvin.SuperClean.Vsix/CodingWithCalvin.SuperClean.Vsix.csproj' /p:configuration='Release' /p:platform='x64'
+      run: msbuild 'src/CodingWithCalvin.SuperClean/CodingWithCalvin.SuperClean.csproj' /p:configuration='Release' /p:platform='x64'
 
     - name: 4. Create Information File
       uses: jsdaniell/create-json@v1.2.3
       with:
-        name: 'src/CodingWithCalvin.SuperClean.Vsix/bin/x64/Release/CodingWithCalvin.SuperClean.Vsix.info'
+        name: 'src/CodingWithCalvin.SuperClean/bin/x64/Release/CodingWithCalvin.SuperClean.info'
         json: '{"sha":"${{ github.sha }}", "version":"${{ steps.step-version.outputs.version }}"}'
     
     - name: 5. Publishing Build Artifact
       uses: actions/upload-artifact@v4
       with:
         path: |
-          src/CodingWithCalvin.SuperClean.Vsix/bin/x64/Release/CodingWithCalvin.SuperClean.Vsix.info
-          src/CodingWithCalvin.SuperClean.Vsix/bin/x64/Release/CodingWithCalvin.SuperClean.Vsix.vsix
+          src/CodingWithCalvin.SuperClean/bin/x64/Release/CodingWithCalvin.SuperClean.info
+          src/CodingWithCalvin.SuperClean/bin/x64/Release/CodingWithCalvin.SuperClean.vsix

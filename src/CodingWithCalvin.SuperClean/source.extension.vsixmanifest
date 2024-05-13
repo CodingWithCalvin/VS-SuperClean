@@ -5,8 +5,8 @@
         <DisplayName>Super Clean</DisplayName>
         <Description xml:space="preserve">Adds a 'Super Clean' option to the right click menu of the Solution and Project nodes of the Solution Explorer, to clear out the bin and obj folders for all, or selected, projects in the solution.</Description>
         <MoreInfo>https://github.com/codingwithcalvin/vs-superclean</MoreInfo>
-        <License>Resources\LICENSE</License>
-        <Icon>Resources\logo.png</Icon>
+        <License>resources\LICENSE</License>
+        <Icon>resources\logo.png</Icon>
         <Tags>bin,debug,folder,output</Tags>
     </Metadata>
     <Installation>
