@@ -24,7 +24,7 @@ jobs:
       uses: CodingWithCalvin/GHA-VSVsixVersioner@v1
       with:
         extension-manifest-file: 'src/CodingWithCalvin.SuperClean.Vsix/source.extension.vsixmanifest'
-        extension-source-file: 'src/CodingWithCalvin.SuperClean.Vsix/VsixConstants.cs'
+        extension-source-file: 'src/CodingWithCalvin.SuperClean.Vsix/source.extension.cs'
     
     - name: 2. Restoring Packages
       run: nuget restore ./src/CodingWithCalvin.SuperClean.sln
