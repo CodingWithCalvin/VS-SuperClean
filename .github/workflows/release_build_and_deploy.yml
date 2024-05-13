@@ -30,7 +30,7 @@ jobs:
       run: nuget restore ./src/CodingWithCalvin.SuperClean.sln
 
     - name: 3. Building Project
-      run: msbuild 'src/CodingWithCalvin.SuperClean/CodingWithCalvin.SuperClean.csproj' /p:configuration='Release' /p:platform='x64'
+      run: msbuild 'src/CodingWithCalvin.SuperClean/CodingWithCalvin.SuperClean.csproj' /p:configuration='Release' /p:platform='x64' /p:DeployExtension=False
 
     - name: 4. Create Information File
       uses: jsdaniell/create-json@v1.2.3
