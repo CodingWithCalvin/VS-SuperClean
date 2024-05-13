@@ -2,14 +2,8 @@
   "$schema": "http://json.schemastore.org/vsix-publish",
   "categories": [ "coding", "other", "programming languages" ],
   "identity": {
-    "displayName": "Super Clean",
-    "internalName": "VS-SuperClean",
-    "tags": ["bin", "debug", "folder", "output"],
+    "internalName": "VS-SuperClean"
   },
   "overview": "../README.md",
-  "priceCategory": "free",
-  "publisher": "CodingWithCalvin",
-  "private": false,
-  "qna": false,
-  "repo": "https://github.com/CodingWithCalvin/vs-superclean"
+  "publisher": "CodingWithCalvin"
 }
