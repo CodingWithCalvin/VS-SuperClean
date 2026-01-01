@@ -20,3 +20,8 @@ A Visual Studio extension that adds a 'Super Clean' option to the right click me
 Contributions are welcome! Issues, PRs, etc. While it may seem this extension is "done", who knows what the future may hold for it?
 
 For cloning and building this project yourself, make sure to install the [Extensibility Essentials 2022 extension](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.ExtensibilityEssentials2022) for Visual Studio which enables some features used by this project.
+
+## Contributors
+
+<!-- readme: contributors -start -->
+<!-- readme: contributors -end -->
