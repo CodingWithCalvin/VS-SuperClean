@@ -27,7 +27,7 @@ jobs:
         extension-source-file: 'src/CodingWithCalvin.SuperClean/source.extension.cs'
     
     - name: 2. Restoring Packages
-      run: nuget restore ./src/CodingWithCalvin.SuperClean.sln
+      run: nuget restore ./src/CodingWithCalvin.SuperClean.slnx
 
     - name: 3. Building Project
       run: msbuild 'src/CodingWithCalvin.SuperClean/CodingWithCalvin.SuperClean.csproj' /p:configuration='Release' /p:platform='x64' /p:DeployExtension=False

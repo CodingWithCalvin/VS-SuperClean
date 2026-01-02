@@ -1,0 +1,16 @@
+<Solution>
+  <Configurations>
+    <Configuration Name="Debug" />
+    <Configuration Name="Release" />
+    <Platform Name="arm64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path="../.github/workflows/publish.yml" />
+    <File Path="../.github/workflows/release_build_and_deploy.yml" />
+    <File Path="../README.md" />
+    <File Path="../resources/extension.manifest.json" />
+  </Folder>
+  <Project Path="CodingWithCalvin.SuperClean/CodingWithCalvin.SuperClean.csproj" />
+</Solution>
