@@ -4,8 +4,15 @@ on:
   workflow_dispatch:
 
 jobs:
+  changelog:
+    name: Generate Changelog
+    uses: CodingWithCalvin/.github/.github/workflows/generate-changelog.yml@main
+
   publish:
+    needs: changelog
     runs-on: windows-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -14,26 +21,24 @@ jobs:
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
         with:
-          github_token: ${{secrets.GH_SECRET}}
           workflow: release_build_and_deploy.yml
           workflow_conclusion: success
-          
+
       - name: 2. Parse Artifact Manifest
         id: artifact_manifest
         uses: ActionsTools/read-json-action@main
         with:
           file_path: ./artifact/CodingWithCalvin.SuperClean.info
-                
+
       - name: 3. Create Tag & Release
         uses: ncipollo/release-action@v1.14.0
         with:
           artifacts: ./artifact/CodingWithCalvin.SuperClean.vsix
-          generateReleaseNotes: true
+          body: ${{ needs.changelog.outputs.changelog }}
           makeLatest: true
-          token: ${{ secrets.GH_SECRET }}
           commit: ${{ steps.artifact_manifest.outputs.sha }}
           tag: ${{ steps.artifact_manifest.outputs.version }}
-          
+
       - name: 4. Publish Release to Marketplace
         if: success()
         uses: CodingWithCalvin/GHA-VSMarketplacePublisher@v1
