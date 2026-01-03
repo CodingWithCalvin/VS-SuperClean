@@ -282,3 +282,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Claude Code local settings
+CLAUDE.local.md
+.claude/
