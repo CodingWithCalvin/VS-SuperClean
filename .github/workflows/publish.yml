@@ -3,46 +3,16 @@ name: Publish to VS Marketplace
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
-  changelog:
-    name: Generate Changelog
-    uses: CodingWithCalvin/.github/.github/workflows/generate-changelog.yml@main
-
   publish:
-    needs: changelog
-    runs-on: windows-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: 1. Download artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v6
-        with:
-          workflow: build.yml
-          workflow_conclusion: success
-
-      - name: 2. Parse Artifact Manifest
-        id: artifact_manifest
-        uses: ActionsTools/read-json-action@main
-        with:
-          file_path: ./artifact/CodingWithCalvin.SuperClean.info
-
-      - name: 3. Create Tag & Release
-        uses: ncipollo/release-action@v1.14.0
-        with:
-          artifacts: ./artifact/CodingWithCalvin.SuperClean.vsix
-          body: ${{ needs.changelog.outputs.changelog }}
-          makeLatest: true
-          commit: ${{ steps.artifact_manifest.outputs.sha }}
-          tag: ${{ steps.artifact_manifest.outputs.version }}
-
-      - name: 4. Publish Release to Marketplace
-        if: success()
-        uses: CodingWithCalvin/GHA-VSMarketplacePublisher@v1
-        with:
-          marketplace-pat: ${{ secrets.VS_PAT }}
-          publish-manifest-path: ./resources/extension.manifest.json
-          vsix-path: ./artifact/CodingWithCalvin.SuperClean.vsix
+    uses: CodingWithCalvin/.github/.github/workflows/vsix-publish.yml@main
+    with:
+      extension-name: SuperClean
+      display-name: 'Super Clean'
+      marketplace-id: CodingWithCalvin.VS-SuperClean
+      description: 'Clear out bin and obj folders for all projects in your solution'
+    secrets: inherit
