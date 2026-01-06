@@ -1,8 +1,10 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using CodingWithCalvin.Otel4Vsix;
 using Community.VisualStudio.Toolkit;
 using Microsoft.VisualStudio.Shell;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -42,12 +44,20 @@ namespace CodingWithCalvin.SuperClean.Commands
 
         private static void OpenPathWrapper(object sender, EventArgs e)
         {
+            using var activity = VsixTelemetry.StartCommandActivity("SuperClean.OpenPathWrapper");
+
             try
             {
                 _ = OpenPathAsync(sender, e);
             }
             catch (Exception ex)
             {
+                activity?.RecordError(ex);
+                VsixTelemetry.TrackException(ex, new Dictionary<string, object>
+                {
+                    { "operation.name", "OpenPathWrapper" }
+                });
+
                 MessageBox.Show(
                     $@"
                                 Fatal Error! Unable to invoke Super Clean!
@@ -60,12 +70,18 @@ namespace CodingWithCalvin.SuperClean.Commands
 
         private static async Task OpenPathAsync(object sender, EventArgs e)
         {
+            using var activity = VsixTelemetry.StartCommandActivity("SuperClean.OpenPathAsync");
+
             var activeItem = await VS.Solutions.GetActiveItemAsync();
 
             if (activeItem == null)
             {
+                VsixTelemetry.LogInformation("No active item found");
                 return;
             }
+
+            activity?.SetTag("item.type", activeItem.Type.ToString());
+            activity?.SetTag("item.name", activeItem.Name);
 
             switch (activeItem.Type)
             {
@@ -78,9 +94,17 @@ namespace CodingWithCalvin.SuperClean.Commands
                         {
                             throw new ApplicationException(errors);
                         }
+
+                        VsixTelemetry.LogInformation("Solution super cleaned successfully");
                     }
                     catch (Exception ex)
                     {
+                        activity?.RecordError(ex);
+                        VsixTelemetry.TrackException(ex, new Dictionary<string, object>
+                        {
+                            { "operation.name", "SuperCleanSolution" }
+                        });
+
                         MessageBox.Show(
                             $@"
                                 Unable to Super Clean solution
@@ -95,9 +119,17 @@ namespace CodingWithCalvin.SuperClean.Commands
                     try
                     {
                         SuperCleanProject(activeItem);
+                        VsixTelemetry.LogInformation("Project {ProjectName} super cleaned successfully", activeItem.Name);
                     }
                     catch (Exception ex)
                     {
+                        activity?.RecordError(ex);
+                        VsixTelemetry.TrackException(ex, new Dictionary<string, object>
+                        {
+                            { "operation.name", "SuperCleanProject" },
+                            { "project.name", activeItem.Name }
+                        });
+
                         MessageBox.Show(
                             $@"
                                 Unable to Super Clean project ${activeItem.Name}
@@ -112,27 +144,39 @@ namespace CodingWithCalvin.SuperClean.Commands
 
             async Task<(bool, string)> SuperCleanSolution()
             {
+                using var solutionActivity = VsixTelemetry.StartCommandActivity("SuperClean.SuperCleanSolution");
+
                 var success = true;
                 var errors = new StringBuilder();
+                var projectCount = 0;
 
                 foreach (var project in await VS.Solutions.GetAllProjectsAsync())
                 {
                     try
                     {
                         SuperCleanProject(project);
+                        projectCount++;
                     }
                     catch (Exception ex)
                     {
                         errors.AppendLine(ex.Message);
                         success = false;
+                        solutionActivity?.RecordError(ex);
                     }
                 }
+
+                solutionActivity?.SetTag("projects.cleaned", projectCount);
+                solutionActivity?.SetTag("success", success);
 
                 return (success, errors.ToString());
             }
 
             void SuperCleanProject(SolutionItem project)
             {
+                using var projectActivity = VsixTelemetry.StartCommandActivity("SuperClean.SuperCleanProject");
+
+                projectActivity?.SetTag("project.name", project.Name);
+
                 var projectPath =
                     Path.GetDirectoryName(project.FullPath)
                     ?? throw new InvalidOperationException();
@@ -143,11 +187,13 @@ namespace CodingWithCalvin.SuperClean.Commands
                 if (Directory.Exists(binPath))
                 {
                     Directory.Delete(binPath, true);
+                    projectActivity?.SetTag("bin.deleted", true);
                 }
 
                 if (Directory.Exists(objPath))
                 {
                     Directory.Delete(objPath, true);
+                    projectActivity?.SetTag("obj.deleted", true);
                 }
             }
         }

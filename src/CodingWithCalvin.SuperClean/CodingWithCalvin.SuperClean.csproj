@@ -8,11 +8,8 @@
     <OutputPath>bin/$(Configuration)/</OutputPath>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <DeployExtension>True</DeployExtension>
-  </PropertyGroup>
-
   <ItemGroup>
+    <PackageReference Include="CodingWithCalvin.Otel4Vsix" Version="0.2.2" />
     <PackageReference Include="Community.VisualStudio.Toolkit.17" Version="17.0.492" />
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.14.40265" />
   </ItemGroup>
