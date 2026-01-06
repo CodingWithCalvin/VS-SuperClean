@@ -81,9 +81,7 @@ namespace CodingWithCalvin.SuperClean.Commands
             }
 
             activity?.SetTag("item.type", activeItem.Type.ToString());
-            activity?.SetTag("item.name", activeItem.Name);
-
-            switch (activeItem.Type)
+                        switch (activeItem.Type)
             {
                 case SolutionItemType.Solution:
                     try
@@ -119,7 +117,7 @@ namespace CodingWithCalvin.SuperClean.Commands
                     try
                     {
                         SuperCleanProject(activeItem);
-                        VsixTelemetry.LogInformation("Project {ProjectName} super cleaned successfully", activeItem.Name);
+                        VsixTelemetry.LogInformation("Project super cleaned successfully");
                     }
                     catch (Exception ex)
                     {
@@ -127,8 +125,7 @@ namespace CodingWithCalvin.SuperClean.Commands
                         VsixTelemetry.TrackException(ex, new Dictionary<string, object>
                         {
                             { "operation.name", "SuperCleanProject" },
-                            { "project.name", activeItem.Name }
-                        });
+                            });
 
                         MessageBox.Show(
                             $@"
@@ -175,9 +172,7 @@ namespace CodingWithCalvin.SuperClean.Commands
             {
                 using var projectActivity = VsixTelemetry.StartCommandActivity("SuperClean.SuperCleanProject");
 
-                projectActivity?.SetTag("project.name", project.Name);
-
-                var projectPath =
+                                var projectPath =
                     Path.GetDirectoryName(project.FullPath)
                     ?? throw new InvalidOperationException();
 
