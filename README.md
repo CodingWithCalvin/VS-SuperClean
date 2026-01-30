@@ -36,7 +36,7 @@
 
 Tired of lingering build artifacts causing mysterious issues? **Super Clean** nukes those `bin` and `obj` folders with a single click - no more hunting through folders manually!
 
-## Features
+## ✨ Features
 
 | Feature | Description |
 |---------|-------------|
@@ -46,7 +46,7 @@ Tired of lingering build artifacts causing mysterious issues? **Super Clean** nu
 | **Removes obj folder** | Deletes the entire `obj` directory and all its contents |
 | **Fast and reliable** | Quick deletion without the overhead of MSBuild's Clean target |
 
-## Installation
+## 🛠️ Installation
 
 ### Visual Studio Marketplace
 
@@ -59,24 +59,24 @@ Tired of lingering build artifacts causing mysterious issues? **Super Clean** nu
 
 Download the latest `.vsix` from the [Releases](https://github.com/CodingWithCalvin/VS-SuperClean/releases) page and double-click to install.
 
-## Usage
+## 🚀 Usage
 
 1. Right-click on a **Solution** or **Project** in Solution Explorer
 2. Select **Super Clean**
 3. Watch those `bin` and `obj` folders disappear!
 
-## Supported Versions
+## 💻 Supported Versions
 
 | Visual Studio | Architectures |
 |---------------|---------------|
 | Visual Studio 2022 (17.x) | x64 (amd64), ARM64 |
 | Visual Studio 2026 (18.x) | x64 (amd64), ARM64 |
 
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Whether it's bug reports, feature requests, or pull requests - all feedback helps make this extension better.
 
-### Development Setup
+### 🔧 Development Setup
 
 1. Clone the repository
 2. Open the solution in Visual Studio 2022 or 2026
@@ -84,13 +84,13 @@ Contributions are welcome! Whether it's bug reports, feature requests, or pull r
 4. Install the [Extensibility Essentials 2022](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.ExtensibilityEssentials2022) extension
 5. Press F5 to launch the experimental instance
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## Contributors
+## 👥 Contributors
 
 <!-- readme: contributors -start -->
 <!-- readme: contributors -end -->
