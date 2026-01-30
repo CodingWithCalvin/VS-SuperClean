@@ -28,8 +28,8 @@ namespace CodingWithCalvin.SuperClean.Commands
             }
 
             var menuCommandId = new CommandID(
-                PackageGuids.CommandSetGuid,
-                PackageIds.SuperCleanCommandId
+                VSCommandTableVsct.CommandSetGuid.Guid,
+                VSCommandTableVsct.CommandSetGuid.SuperCleanCommandId
             );
             var menuItem = new MenuCommand(OpenPathWrapper, menuCommandId);
             commandService.AddCommand(menuItem);
