@@ -14,5 +14,4 @@ jobs:
       extension-name: SuperClean
       display-name: 'Super Clean'
       marketplace-id: CodingWithCalvin.VS-SuperClean
-      description: 'Clear out bin and obj folders for all projects in your solution'
     secrets: inherit
