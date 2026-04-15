@@ -17,21 +17,6 @@
   </a>
 </p>
 
-<p align="center">
-  <a href="https://marketplace.visualstudio.com/items?itemName=CodingWithCalvin.VS-SuperClean">
-    <img src="https://img.shields.io/visual-studio-marketplace/v/CodingWithCalvin.VS-SuperClean?style=for-the-badge" alt="Marketplace Version">
-  </a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=CodingWithCalvin.VS-SuperClean">
-    <img src="https://img.shields.io/visual-studio-marketplace/i/CodingWithCalvin.VS-SuperClean?style=for-the-badge" alt="Marketplace Installations">
-  </a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=CodingWithCalvin.VS-SuperClean">
-    <img src="https://img.shields.io/visual-studio-marketplace/d/CodingWithCalvin.VS-SuperClean?style=for-the-badge" alt="Marketplace Downloads">
-  </a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=CodingWithCalvin.VS-SuperClean">
-    <img src="https://img.shields.io/visual-studio-marketplace/r/CodingWithCalvin.VS-SuperClean?style=for-the-badge" alt="Marketplace Rating">
-  </a>
-</p>
-
 ---
 
 Tired of lingering build artifacts causing mysterious issues? **Super Clean** nukes those `bin` and `obj` folders with a single click - no more hunting through folders manually!
