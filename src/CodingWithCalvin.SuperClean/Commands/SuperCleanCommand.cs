@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using CodingWithCalvin.Otel4Vsix;
 using Community.VisualStudio.Toolkit;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace CodingWithCalvin.SuperClean.Commands
@@ -232,8 +234,33 @@ namespace CodingWithCalvin.SuperClean.Commands
                     projectActivity?.SetTag("obj.deleted", true);
                 }
 
+                await RefreshInSolutionExplorerAsync(project);
+
                 return true;
             }
+        }
+
+        private static async Task RefreshInSolutionExplorerAsync(SolutionItem project)
+        {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+            project.GetItemInfo(out IVsHierarchy hierarchy, out uint itemId, out _);
+
+            if (hierarchy is not IVsUIHierarchy uiHierarchy)
+            {
+                return;
+            }
+
+            var cmdGuid = VSConstants.GUID_VSStandardCommandSet97;
+
+            uiHierarchy.ExecCommand(
+                itemId,
+                ref cmdGuid,
+                (uint)VSConstants.VSStd97CmdID.Refresh,
+                0,
+                IntPtr.Zero,
+                IntPtr.Zero
+            );
         }
     }
 }
