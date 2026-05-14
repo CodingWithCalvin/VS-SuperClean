@@ -86,7 +86,7 @@ namespace CodingWithCalvin.SuperClean.Commands
                 case SolutionItemType.Solution:
                     try
                     {
-                        var (success, errors) = await SuperCleanSolution();
+                        var (success, errors, skippedWebsites) = await SuperCleanSolution();
 
                         if (!success)
                         {
@@ -94,6 +94,16 @@ namespace CodingWithCalvin.SuperClean.Commands
                         }
 
                         VsixTelemetry.LogInformation("Solution super cleaned successfully");
+
+                        if (skippedWebsites.Count > 0)
+                        {
+                            MessageBox.Show(
+                                $"Super Clean skipped the following Web Site project(s) because their bin folder is required at runtime:{Environment.NewLine}{Environment.NewLine}  • {string.Join($"{Environment.NewLine}  • ", skippedWebsites)}",
+                                "Super Clean",
+                                System.Windows.Forms.MessageBoxButtons.OK,
+                                System.Windows.Forms.MessageBoxIcon.Information
+                            );
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -117,9 +127,22 @@ namespace CodingWithCalvin.SuperClean.Commands
                     try
                     {
                         var cleaned = await SuperCleanProjectAsync(activeItem);
-                        VsixTelemetry.LogInformation(cleaned
-                            ? "Project super cleaned successfully"
-                            : $"Project skipped: {activeItem.Name}");
+
+                        if (cleaned)
+                        {
+                            VsixTelemetry.LogInformation("Project super cleaned successfully");
+                        }
+                        else
+                        {
+                            VsixTelemetry.LogInformation($"Project skipped: {activeItem.Name}");
+
+                            MessageBox.Show(
+                                $"Super Clean skipped \"{activeItem.Name}\" because Web Site projects rely on their bin folder at runtime.",
+                                "Super Clean",
+                                System.Windows.Forms.MessageBoxButtons.OK,
+                                System.Windows.Forms.MessageBoxIcon.Information
+                            );
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -141,13 +164,14 @@ namespace CodingWithCalvin.SuperClean.Commands
                     break;
             }
 
-            async Task<(bool, string)> SuperCleanSolution()
+            async Task<(bool, string, List<string>)> SuperCleanSolution()
             {
                 using var solutionActivity = VsixTelemetry.StartCommandActivity("SuperClean.SuperCleanSolution");
 
                 var success = true;
                 var errors = new StringBuilder();
                 var projectCount = 0;
+                var skippedWebsites = new List<string>();
 
                 foreach (var project in await VS.Solutions.GetAllProjectsAsync())
                 {
@@ -156,6 +180,10 @@ namespace CodingWithCalvin.SuperClean.Commands
                         if (await SuperCleanProjectAsync(project))
                         {
                             projectCount++;
+                        }
+                        else
+                        {
+                            skippedWebsites.Add(project.Name);
                         }
                     }
                     catch (Exception ex)
@@ -167,9 +195,10 @@ namespace CodingWithCalvin.SuperClean.Commands
                 }
 
                 solutionActivity?.SetTag("projects.cleaned", projectCount);
+                solutionActivity?.SetTag("projects.skipped", skippedWebsites.Count);
                 solutionActivity?.SetTag("success", success);
 
-                return (success, errors.ToString());
+                return (success, errors.ToString(), skippedWebsites);
             }
 
             async Task<bool> SuperCleanProjectAsync(SolutionItem project)
