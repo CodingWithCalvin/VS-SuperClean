@@ -116,8 +116,10 @@ namespace CodingWithCalvin.SuperClean.Commands
                 case SolutionItemType.Project:
                     try
                     {
-                        SuperCleanProject(activeItem);
-                        VsixTelemetry.LogInformation("Project super cleaned successfully");
+                        var cleaned = await SuperCleanProjectAsync(activeItem);
+                        VsixTelemetry.LogInformation(cleaned
+                            ? "Project super cleaned successfully"
+                            : $"Project skipped: {activeItem.Name}");
                     }
                     catch (Exception ex)
                     {
@@ -151,8 +153,10 @@ namespace CodingWithCalvin.SuperClean.Commands
                 {
                     try
                     {
-                        SuperCleanProject(project);
-                        projectCount++;
+                        if (await SuperCleanProjectAsync(project))
+                        {
+                            projectCount++;
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -168,11 +172,19 @@ namespace CodingWithCalvin.SuperClean.Commands
                 return (success, errors.ToString());
             }
 
-            void SuperCleanProject(SolutionItem project)
+            async Task<bool> SuperCleanProjectAsync(SolutionItem project)
             {
                 using var projectActivity = VsixTelemetry.StartCommandActivity("SuperClean.SuperCleanProject");
 
-                                var projectPath =
+                if (project is Project typedProject && await typedProject.IsKindAsync(ProjectTypes.WEBSITE))
+                {
+                    projectActivity?.SetTag("skipped", true);
+                    projectActivity?.SetTag("skip.reason", "website-project");
+                    VsixTelemetry.LogInformation($"Skipped Web Site project: {project.Name}");
+                    return false;
+                }
+
+                var projectPath =
                     Path.GetDirectoryName(project.FullPath)
                     ?? throw new InvalidOperationException();
 
@@ -190,6 +202,8 @@ namespace CodingWithCalvin.SuperClean.Commands
                     Directory.Delete(objPath, true);
                     projectActivity?.SetTag("obj.deleted", true);
                 }
+
+                return true;
             }
         }
     }
